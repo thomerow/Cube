@@ -21,6 +21,7 @@ namespace Quader
       private Object _lockObjDiscIncr = new Object();
       private int _discarded;
 
+
       public frmMain()
       {
          InitializeComponent();
@@ -28,7 +29,8 @@ namespace Quader
 #if DEBUG
          if (Numbers.Count != (int) Quader.Edge.Items) throw new Exception("Es müssen genau so viele Zahlen wie Quaderkanten zur Verfügung stehen.");
 #endif
-      }
+      } // frmMain
+
 
       private void BtnCalc_Click(object sender, EventArgs e)
       {
@@ -42,15 +44,13 @@ namespace Quader
          Parallel.ForEach<int>(Numbers, n =>
             {
                var q = new Quader(Sum);
-               q.Edges[(int) Quader.Edge.A] = n;
-               var numbersLeft = new List<int>(Numbers);
-               numbersLeft.Remove(n);
-               NextEdge(numbersLeft, q);
+               NextEdge(new List<int>(Numbers), (int) Quader.Edge.A, n, q);
             }
          );
 
          PrintSolutions();
-      }
+      } // BtnCalc_Click
+
 
       private void PrintSolutions()
       {
@@ -67,7 +67,8 @@ namespace Quader
          lines.ForEach(ln => sbSolutions.AppendLine(ln));
 
          _txtSolutions.Text = sbSolutions.ToString();
-      }
+      } // PrintSolutions
+
 
       private void NextEdge(List<int> numbers, Quader quader)
       {
@@ -90,14 +91,20 @@ namespace Quader
             foreach (int j in numbers)
             {
                var q = new Quader(quader);
-               q.Edges[i] = j;
-               var numbersLeft = new List<int>(numbers);
-               numbersLeft.Remove(j);
-               NextEdge(numbersLeft, q);
+               NextEdge(numbers, i, j, q);
             }
 
             break;
          }
-      }
+      } // NextEdge
+
+
+      private void NextEdge(List<int> numbers, int nEdge, int nEdgeVal, Quader q)
+      {
+         q.Edges[nEdge] = nEdgeVal;
+         var numbersLeft = new List<int>(numbers);
+         numbersLeft.Remove(nEdgeVal);
+         NextEdge(numbersLeft, q);
+      } // NextEdge
    }
 }
