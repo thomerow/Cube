@@ -33,7 +33,7 @@ namespace Quader
       private void BtnCalc_Click(object sender, EventArgs e)
       {
          _solutions.Clear();
-         txtSolutions.Clear();
+         _txtSolutions.Clear();
          _discarded = 0;
 
          Application.DoEvents();
@@ -41,9 +41,9 @@ namespace Quader
          // foreach (int n in Numbers)
          Parallel.ForEach<int>(Numbers, n =>
             {
-               Quader q = new Quader(Sum);
+               var q = new Quader(Sum);
                q.Edges[(int) Quader.Edge.A] = n;
-               List<int> numbersLeft = new List<int>(Numbers);
+               var numbersLeft = new List<int>(Numbers);
                numbersLeft.Remove(n);
                NextEdge(numbersLeft, q);
             }
@@ -54,19 +54,19 @@ namespace Quader
 
       private void PrintSolutions()
       {
-         StringBuilder sbSolutions = new StringBuilder();
+         var sbSolutions = new StringBuilder();
 
          sbSolutions.AppendLine(_discarded.ToString() + " Belegungen verworfen.");
          sbSolutions.AppendLine(_solutions.Count.ToString() + " Lösung(en) gefunden:");
          sbSolutions.AppendLine();
 
-         List<string> lstLines = new List<string>(_solutions.Count);
+         var lines = new List<string>(_solutions.Count);
 
-         _solutions.ForEach(q => lstLines.Add(q.ToString()));
-         lstLines.Sort();
-         lstLines.ForEach(ln => sbSolutions.AppendLine(ln));
+         _solutions.ForEach(q => lines.Add(q.ToString()));
+         lines.Sort();
+         lines.ForEach(ln => sbSolutions.AppendLine(ln));
 
-         txtSolutions.Text = sbSolutions.ToString();
+         _txtSolutions.Text = sbSolutions.ToString();
       }
 
       private void NextEdge(List<int> numbers, Quader quader)
@@ -89,9 +89,9 @@ namespace Quader
 
             foreach (int j in numbers)
             {
-               Quader q = new Quader(quader);
+               var q = new Quader(quader);
                q.Edges[i] = j;
-               List<int> numbersLeft = new List<int>(numbers);
+               var numbersLeft = new List<int>(numbers);
                numbersLeft.Remove(j);
                NextEdge(numbersLeft, q);
             }
