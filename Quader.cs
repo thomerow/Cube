@@ -20,23 +20,27 @@ namespace Quader
 
       public enum Edge { A = 0, B, C, D, E, F, G, H, I, J, K, L, Items };
 
+
       static Quader()
       {
 #if DEBUG
          if ((int) Edge.Items != 12) throw new Exception("Ein Quader hat immer 12 Kanten.");
 #endif
-      }
+      } // Quader
+
 
       public Quader(int sum)
       {
          _sum = sum;
-      }
+      } // Quader
+
 
       public Quader(Quader that)
       {
          Array.Copy(that.Edges, this.Edges, (int) Edge.Items);
          this._sum = that._sum;
-      }
+      } // Quader
+
 
       public override string ToString()
       {
@@ -52,7 +56,8 @@ namespace Quader
             + ", j = " + Edges[(int) Edge.J].ToString().PadLeft(2, (char) 0x2007)
             + ", k = " + Edges[(int) Edge.K].ToString().PadLeft(2, (char) 0x2007)
             + ", l = " + Edges[(int) Edge.L].ToString().PadLeft(2, (char) 0x2007);
-      }
+      } // ToString
+
 
       public bool IsValid
       {
@@ -74,7 +79,8 @@ namespace Quader
 
             return true;
          }
-      }
+      } // IsValid
+
 
       public bool IsSolved
       {
@@ -87,7 +93,8 @@ namespace Quader
                && (SumSurface(4) == _sum)
                && (SumSurface(5) == _sum));
          }
-      }
+      } // IsSolved
+
 
       private int SumSurface(int n)
       {
@@ -95,7 +102,8 @@ namespace Quader
             + Edges[Surfaces[n, 1]]
             + Edges[Surfaces[n, 2]]
             + Edges[Surfaces[n, 3]];
-      }
+      } // SumSurface
+
 
       private bool IsSurfaceComplete(int n)
       {
@@ -103,6 +111,6 @@ namespace Quader
             && (Edges[Surfaces[n, 1]] != 0)
             && (Edges[Surfaces[n, 2]] != 0)
             && (Edges[Surfaces[n, 3]] != 0);
-      }
+      } // IsSurfaceComplete
    }
 }
