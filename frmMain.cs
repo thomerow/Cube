@@ -30,7 +30,7 @@ namespace Quader
 #endif
       }
 
-      private void btnCalc_Click(object sender, EventArgs e)
+      private void BtnCalc_Click(object sender, EventArgs e)
       {
          _solutions.Clear();
          txtSolutions.Clear();
