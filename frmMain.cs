@@ -18,7 +18,6 @@ namespace Quader
       private const int Sum = 52;
 
       private Object _lockObjListAdd = new Object();
-      private Object _lockObjDiscIncr = new Object();
       private int _discarded;
 
 
@@ -41,12 +40,10 @@ namespace Quader
          Application.DoEvents();
 
          // foreach (int n in Numbers)
-         Parallel.ForEach<int>(Numbers, n =>
-            {
-               var q = new Quader(Sum);
-               NextEdge(new List<int>(Numbers), (int) Quader.Edge.A, n, q);
-            }
-         );
+         Parallel.ForEach(Numbers, n => {
+            var q = new Quader(Sum);
+            NextEdge(new List<int>(Numbers), (int) Quader.Edge.A, n, q);
+         });
 
          PrintSolutions();
       } // BtnCalc_Click
@@ -74,7 +71,7 @@ namespace Quader
       {
          if (!quader.IsValid)
          {
-            lock (_lockObjDiscIncr) ++_discarded;
+            Interlocked.Increment(ref _discarded);
             return;
          }
 
