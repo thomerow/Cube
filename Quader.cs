@@ -57,19 +57,18 @@ namespace Quader {
 
       public bool IsValid {
          get {
-            if (SumSurface(0) > _sum) return false;
-            if (SumSurface(1) > _sum) return false;
-            if (SumSurface(2) > _sum) return false;
-            if (SumSurface(3) > _sum) return false;
-            if (SumSurface(4) > _sum) return false;
-            if (SumSurface(5) > _sum) return false;
-
-            if (IsSurfaceComplete(0) && (SumSurface(0) != _sum)) return false;
-            if (IsSurfaceComplete(1) && (SumSurface(1) != _sum)) return false;
-            if (IsSurfaceComplete(2) && (SumSurface(2) != _sum)) return false;
-            if (IsSurfaceComplete(3) && (SumSurface(3) != _sum)) return false;
-            if (IsSurfaceComplete(4) && (SumSurface(4) != _sum)) return false;
-            if (IsSurfaceComplete(5) && (SumSurface(5) != _sum)) return false;
+            int nSum = SumSurface(0);
+            if ((nSum > _sum) || (IsSurfaceComplete(0) && (nSum != _sum))) return false;
+            nSum = SumSurface(1);
+            if ((nSum > _sum) || (IsSurfaceComplete(1) && (nSum != _sum))) return false;
+            nSum = SumSurface(2);
+            if ((nSum > _sum) || (IsSurfaceComplete(2) && (nSum != _sum))) return false;
+            nSum = SumSurface(3);
+            if ((nSum > _sum) || (IsSurfaceComplete(3) && (nSum != _sum))) return false;
+            nSum = SumSurface(4);
+            if ((nSum > _sum) || (IsSurfaceComplete(4) && (nSum != _sum))) return false;
+            nSum = SumSurface(5);
+            if ((nSum > _sum) || (IsSurfaceComplete(5) && (nSum != _sum))) return false;
 
             return true;
          }
