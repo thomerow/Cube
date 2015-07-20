@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Quader
-{
-   class Quader
-   {
+namespace Quader {
+
+   class Quader {
+
       public int[] Edges = new int[(int) Edge.Items];
       private int _sum;
 
@@ -21,29 +21,25 @@ namespace Quader
       public enum Edge { A = 0, B, C, D, E, F, G, H, I, J, K, L, Items };
 
 
-      static Quader()
-      {
+      static Quader() {
 #if DEBUG
          if ((int) Edge.Items != 12) throw new Exception("Ein Quader hat immer 12 Kanten.");
 #endif
       } // Quader
 
 
-      public Quader(int sum)
-      {
+      public Quader(int sum) {
          _sum = sum;
       } // Quader
 
 
-      public Quader(Quader that)
-      {
+      public Quader(Quader that) {
          Array.Copy(that.Edges, this.Edges, (int) Edge.Items);
          this._sum = that._sum;
       } // Quader
 
 
-      public override string ToString()
-      {
+      public override string ToString() {
          return "a = " + Edges[(int) Edge.A].ToString().PadLeft(2, (char) 0x2007)
             + ", b = " + Edges[(int) Edge.B].ToString().PadLeft(2, (char) 0x2007)
             + ", c = " + Edges[(int) Edge.C].ToString().PadLeft(2, (char) 0x2007)
@@ -59,10 +55,8 @@ namespace Quader
       } // ToString
 
 
-      public bool IsValid
-      {
-         get
-         {
+      public bool IsValid {
+         get {
             if (SumSurface(0) > _sum) return false;
             if (SumSurface(1) > _sum) return false;
             if (SumSurface(2) > _sum) return false;
@@ -82,10 +76,8 @@ namespace Quader
       } // IsValid
 
 
-      public bool IsSolved
-      {
-         get
-         {
+      public bool IsSolved {
+         get {
             return ((SumSurface(0) == _sum)
                && (SumSurface(1) == _sum)
                && (SumSurface(2) == _sum)
@@ -96,8 +88,7 @@ namespace Quader
       } // IsSolved
 
 
-      private int SumSurface(int n)
-      {
+      private int SumSurface(int n) {
          return Edges[Surfaces[n, 0]]
             + Edges[Surfaces[n, 1]]
             + Edges[Surfaces[n, 2]]
@@ -105,8 +96,7 @@ namespace Quader
       } // SumSurface
 
 
-      private bool IsSurfaceComplete(int n)
-      {
+      private bool IsSurfaceComplete(int n) {
          return (Edges[Surfaces[n, 0]] != 0)
             && (Edges[Surfaces[n, 1]] != 0)
             && (Edges[Surfaces[n, 2]] != 0)
